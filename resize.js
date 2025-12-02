@@ -1,3 +1,4 @@
+//Librerias
 const sharp = require("sharp");
 const fs = require("fs");
 const path = require("path");
@@ -12,10 +13,12 @@ const SIZES = {
   xlarge: 1600,
 };
 
+//Creamos carpeta si no existe
 if (!fs.existsSync(outputFolder)) {
   fs.mkdirSync(outputFolder);
 }
 
+//Obtenemos imagenes validas
 const images = fs
   .readdirSync(inputFolder)
   .filter(file => /\.(jpg|jpeg|png|webp)$/i.test(file));
@@ -39,6 +42,8 @@ async function processImage(imageName) {
       .toFile(`${outputFolder}/${baseName}-${label}-2x.jpg`);
   }
 }
+
+//Funcion procesado principal
 (async () => {
   for (const img of images) {
     await processImage(img);
@@ -46,4 +51,4 @@ async function processImage(imageName) {
   console.log("Redimensionado de la imagen completado");
 })();
 
-//Hecho por francisco Alexandeu Babei
+//Hecho por francisco Alexandru Babei
