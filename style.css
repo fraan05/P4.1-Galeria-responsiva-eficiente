@@ -38,7 +38,14 @@ header {
 }
 
 .caption {
-    display: none; 
+    display: block;
+    padding: 8px;
+    color: #eee;
+    font-size: 14px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.6);
+    margin-top: 5px;
+    border-radius: 5px;
 }
 
 @media (min-width: 768px) {

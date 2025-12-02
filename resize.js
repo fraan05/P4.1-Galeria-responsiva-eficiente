@@ -18,7 +18,7 @@ if (!fs.existsSync(outputFolder)) {
 
 const images = fs
   .readdirSync(inputFolder)
-  .filter((file) => file.match(/\.(jpg|jpeg|png|webp)$/i));
+  .filter(file => /\.(jpg|jpeg|png|webp)$/i.test(file));
 
 async function processImage(imageName) {
   const inputPath = path.join(inputFolder, imageName);
@@ -27,28 +27,21 @@ async function processImage(imageName) {
   console.log("Procesando:", imageName);
 
   for (const [label, width] of Object.entries(SIZES)) {
-    // 1x versión
-    const out1x = `${baseName}-${label}-1x.jpg`;
-    await sharp(inputPath)
-      .resize({ width: width })
-      .jpeg({ quality: 80 })
-      .toFile(path.join(outputFolder, out1x));
 
-    // 2x versión
-    const out2x = `${baseName}-${label}-2x.jpg`;
+    // 1x
+    await sharp(inputPath)
+      .resize({ width })
+      .toFile(`${outputFolder}/${baseName}-${label}-1x.jpg`);
+
+    // 2x
     await sharp(inputPath)
       .resize({ width: width * 2 })
-      .jpeg({ quality: 85 })
-      .toFile(path.join(outputFolder, out2x));
+      .toFile(`${outputFolder}/${baseName}-${label}-2x.jpg`);
   }
 }
-
-async function start() {
-  console.log("Generando versiones redimensionadas");
-
+(async () => {
   for (const img of images) {
     await processImage(img);
   }
-}
-
-start();
+  console.log("Redimensionado de la imagen completado");
+})();
