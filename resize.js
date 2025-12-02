@@ -45,3 +45,5 @@ async function processImage(imageName) {
   }
   console.log("Redimensionado de la imagen completado");
 })();
+
+//Hecho por francisco Alexandeu Babei
